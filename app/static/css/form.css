@@ -1,0 +1,68 @@
+:root {
+  color-scheme: dark;
+}
+#form {
+    width: 400px;
+    margin: 0 40px 40px 100px;
+}
+#form p {
+    margin: 0 0 15px;
+}
+#form input {
+    width: 140px;
+    margin: 0 20px 0 5px;
+    cursor: pointer;
+    padding: 0 10px;
+    float: right;
+}
+#form select {
+    width: 164px;
+    margin: 0 20px 0 5px;
+    cursor: pointer;
+    padding: 0 8px;
+    float: right;
+}
+#form h4 {
+    margin: 10px 0 10px;
+}
+#form span.label {
+    margin-right: 10px;
+}
+#form span.note {
+    font-size: 0.8em;
+    color: #8888c6;
+    opacity: 0.5;
+}
+#form button#submit {
+    padding: 1px 22px;
+    cursor: pointer;
+    margin: 2px 5px 0 0;
+    width: 166px;
+}
+#form button#submit:hover {
+    color: #333;
+    background-color: #aaa;
+    border-radius: 3px;
+}
+table {
+    text-align: left;
+    margin: 0 0 0 100px;
+    color: #aaaaaa;
+}
+table th {
+    padding: 0 20px 3px 5px;
+    border-bottom: 1px solid #333;
+    border-right: 1px solid #333;
+}
+table td {
+    padding: 3px 10px 3px 10px;
+    border-right: 1px solid #333;
+}
+table td.number {
+    text-align: center;
+}
+table tr {
+}
+table tr.odd {
+    background: #333;
+}

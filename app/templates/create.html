@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="heading">Create Records</h1>
+<blockquote>
+    <p style="margin-bottom: 0px;">
+        Enter your name and rate each job from 1 star to five where 1 star means
+        you do not want the job, and five means you would love to have that job.
+        If you're impartial, feel free to leave them set to the default.
+    </p>
+</blockquote>
+<form id="form" method="post" action="{{ url_for('create') }}">
+    <h4>Role Options</h4>
+    <p>
+        <span class="label">Full Name:</span>
+        <input name="name" placeholder="Enter Name">
+    </p>
+
+    <p>
+        <span class="label">Lambda Track:</span>
+        <select name="lambda_track" id="lambda_track">
+        {% for val in ['Data Science', 'Web'] %}
+            {% if val == track_default %}
+            <option selected="selected">{{ val }}</option>
+            {% else %}
+            <option>{{ val }}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <span class="label">Web Front End:</span>
+        <select class="web" name="web_front_end">
+        {% for val in options %}
+            {% if val == default %}
+            <option selected="selected">{{ val }}</option>
+            {% else %}
+            <option>{{ val }}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <span class="label">Web Back End:</span>
+        <select class="web" name="web_back_end">
+        {% for val in options %}
+            {% if val == default %}
+            <option selected="selected">{{ val }}</option>
+            {% else %}
+            <option>{{ val }}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <span class="label">DS Data Engineer:</span>
+        <select class="ds" name="ds_data_engineer">
+        {% for val in options %}
+            {% if val == default %}
+            <option selected="selected">{{ val }}</option>
+            {% else %}
+            <option>{{ val }}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <span class="label">DS API Engineer:</span>
+        <select class="ds" name="ds_api_engineer">
+        {% for val in options %}
+            {% if val == default %}
+            <option selected="selected">{{ val }}</option>
+            {% else %}
+            <option>{{ val }}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <span class="label">DS ML Engineer:</span>
+        <select class="ds" name="ds_ml_engineer">
+        {% for val in options %}
+            {% if val == default %}
+            <option selected="selected">{{ val }}</option>
+            {% else %}
+            <option>{{ val }}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+    </p>
+
+    <button type="submit" id="submit" name="submit">Create Record</button>
+</form>
+
+<script>
+    function activate_web() {
+        var ds_selects = document.getElementsByClassName("ds");
+        for (var i = 0; i < ds_selects.length; i++) {
+            ds_selects[i].disabled = true;
+            ds_selects[i].value = "";
+        }
+        var web_selects = document.getElementsByClassName("web");
+        for (var i = 0; i < web_selects.length; i++) {
+            web_selects[i].disabled = false;
+            web_selects[i].value = "☆☆☆";
+        }
+    }
+    function activate_ds() {
+        var ds_selects = document.getElementsByClassName("ds");
+        for (var i = 0; i < ds_selects.length; i++) {
+            ds_selects[i].disabled = false;
+            ds_selects[i].value = "☆☆☆";
+        }
+        var web_selects = document.getElementsByClassName("web");
+        for (var i = 0; i < web_selects.length; i++) {
+            web_selects[i].disabled = true;
+            web_selects[i].value = "";
+        }
+    }
+    function setup() {
+        var track = document.getElementById("lambda_track").value;
+        if (track === 'Data Science') {
+            activate_ds();
+        } else {
+            activate_web();
+        }
+    }
+    document.getElementById("lambda_track").addEventListener("change", setup);
+    setup();
+</script>
+
+{% if table %}
+<table>
+    <thead>
+        <tr>
+            {% for head in table[0].keys() %}
+                {% if head != '_id' %}
+                <th scope="col">{{ head }}</th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </thead>
+    {% for i, row in enumerate(table) %}
+    {% if i % 2 == 0 %}
+    <tr class="even">
+    {% else %}
+    <tr class="odd">
+    {% endif %}
+    {% for head, cell in row.items() %}
+        {% if head != '_id' %}
+            {% if head == 'Name' or head == 'Lambda Track' %}
+            <td>{{ cell }}</td>
+            {% else %}
+            <td class="number">{{ cell }}</td>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

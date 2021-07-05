@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="heading">Team Assignments</h1>
+{% if table %}
+<table>
+    <thead>
+        <tr>
+            {% for head in table[0].keys() %}
+                {% if head != '_id' %}
+                <th scope="col">{{ head }}</th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </thead>
+    {% for i, row in enumerate(table) %}
+        {% if i % 2 == 0 %}
+        <tr class="even">
+        {% else %}
+        <tr class="odd">
+        {% endif %}
+        {% for head, cell in row.items() %}
+            {% if head != '_id' %}
+                {% if head == 'Name' or head == 'Lambda Track' %}
+                <td>{{ cell }}</td>
+                {% else %}
+                <td class="number">{{ cell }}</td>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
